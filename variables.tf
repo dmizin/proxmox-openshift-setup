@@ -1,38 +1,53 @@
-variable "api_url" {
-  description = "URL to the API of Proxmox"
-  default     = "https://192.168.1.101:8006/api2/json"
-}
-
-variable "user" {
-  description = "Name of the admin account to use"
-  default     = "terraform@pve"
-}
-
-variable "passwd" {
-  description = "Password for the user - defined elsewhere"
-  type        = string
-  sensitive   = true
-}
-
-variable "target_host" {
-  description = "hostname to deploy to"
-  default     = "dantooine"
-}
-
-variable "lxc_passwd" {
-  description = "Password for the root user on containers"
-  type        = string
-  sensitive   = true
-}
-
 variable "token_id" {
-  description = "The token created for a user in Proxmox"
   type        = string
+  description = "The token created for a user in Proxmox"
   sensitive   = true
 }
 
 variable "token_secret" {
-  description = "The secret created for a user's token in Proxmox"
   type        = string
+  description = "The secret created for a user's token in Proxmox"
   sensitive   = true
 }
+
+variable "TF_VAR_admin_username" {
+  description = "User account with create VM rights on Proxmox"
+  type = string
+}
+
+variable "TF_VAR_admin_password" {
+  type = string
+  description = "User account with create VM rights on Proxmox"
+}
+
+variable "TF_VAR_api_url" {
+  type = string
+  description = "URL to the API of Proxmox"
+}
+
+variable "TF_VAR_target_host" {
+  type = string
+  description = "PVE host to deploy to"
+}
+
+variable "TF_VAR_target_store" {
+  type = string
+  description = "Storage backing store to deploy to"
+}
+
+variable "TF_VAR_hd_size" {
+  type        = string
+  description = "Boot drive size"
+}
+
+variable "TF_VAR_net_bridge" {
+  type        = string
+  description = "Proxmox Bridge for network"
+
+}
+
+variable "TF_VAR_net_vlan" {
+  type        = string
+  description = "VLAN for OKD nodes"
+}
+

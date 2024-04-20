@@ -7,9 +7,9 @@ terraform {
 }
 
 provider "proxmox" {
-  pm_api_url  = var.api_url
-  pm_user     = var.user
-  pm_password = var.passwd
+  pm_api_url  = var.TF_VAR_api_url
+  pm_user     = var.TF_VAR_admin_username
+  pm_password = var.TF_VAR_admin_password
   # pm_api_token_id     = var.token_id
   # pm_api_token_secret = var.token_secret
   # Leave to "true" for self-signed certificates
@@ -28,8 +28,8 @@ locals {
     "bootstrap"    = { macaddr = "7A:00:00:00:03:07", cores = 4, ram = 16384, vmid = 807, os = "pxe-client", boot = false },
     "okd-services" = { macaddr = "7A:00:00:00:03:08", cores = 4, ram = 16384, vmid = 808, os = "a2cent", boot = true }
   }
-  bridge = "vmbr1"
-  vlan   = 2
+  # bridge = var.bridge
+  # vlan   = var.vlan
   lxc_settings = {
   }
 }
@@ -39,7 +39,7 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
   for_each    = local.vm_settings
   name        = each.key
   vmid        = each.value.vmid
-  target_node = var.target_host
+  target_node = var.TF_VAR_target_host
   clone       = each.value.os
   full_clone  = true
   boot        = "order=scsi0;ide2;net0" # "c" by default, which renders the coreos35 clone non-bootable. "cdn" is HD, DVD and Network
@@ -54,15 +54,15 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
 
   disk {
     slot    = 0
-    size    = "100G"
+    size    = var.TF_VAR_hd_size
     type    = "scsi"
-    storage = "VM-DATA"
+    storage = var.TF_VAR_target_store
     #iothread = 1
   }
   network {
     model   = "virtio"
-    bridge  = local.bridge
-    tag     = local.vlan
+    bridge  = var.TF_VAR_net_bridge
+    #tag     = var.TF_VAR_net_vlan
     macaddr = each.value.macaddr
   }
 }
