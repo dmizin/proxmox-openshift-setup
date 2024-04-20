@@ -28,10 +28,6 @@ locals {
     "bootstrap"    = { macaddr = "7A:00:00:00:03:07", cores = 4, ram = 16384, vmid = 807, os = "pxe-client", boot = false },
     "okd-services" = { macaddr = "7A:00:00:00:03:08", cores = 4, ram = 16384, vmid = 808, os = "a2cent", boot = true }
   }
-  # bridge = var.bridge
-  # vlan   = var.vlan
-  lxc_settings = {
-  }
 }
 
 /* Configure cloud-init User-Data with custom config file */
@@ -44,7 +40,7 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
   full_clone  = true
   boot        = "order=scsi0;ide2;net0" # "c" by default, which renders the coreos35 clone non-bootable. "cdn" is HD, DVD and Network
   oncreate    = each.value.boot         # start once created
-  agent       = 0
+  agent       = 1
 
   cores    = each.value.cores
   memory   = each.value.ram
@@ -57,7 +53,6 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
     size    = var.TF_VAR_hd_size
     type    = "scsi"
     storage = var.TF_VAR_target_store
-    #iothread = 1
   }
   network {
     model   = "virtio"
