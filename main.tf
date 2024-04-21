@@ -46,7 +46,7 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
   clone       = each.value.os
   full_clone  = true
   boot        = "order=scsi0;ide2;net0" # "c" by default, which renders the coreos35 clone non-bootable. "cdn" is HD, DVD and Network
-  oncreate    = each.value.boot         # start once created
+  onboot    = each.value.boot         # start once created
   agent       = 1
 
   cores    = each.value.cores
