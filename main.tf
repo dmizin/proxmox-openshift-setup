@@ -47,19 +47,19 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
   target_node = each.value.node
   clone       = each.value.os
   full_clone  = true
-  boot        = "order=scsi0;ide2;net0" # "c" by default, which renders the coreos35 clone non-bootable. "cdn" is HD, DVD and Network
+  boot        = "order=virtio0;ide2;net0" # "c" by default, which renders the coreos35 clone non-bootable. "cdn" is HD, DVD and Network
   onboot    = each.value.boot         # start once created
   agent       = 1
 
   cores    = each.value.cores
   memory   = each.value.ram
   scsihw   = "virtio-scsi-pci"
-  bootdisk = "scsi0"
+  bootdisk = "virtio0"
   hotplug  = 0
 
     disks {
         virtio {
-            scsi0 {
+            virtio0 {
                 disk {
                     size            = var.TF_VAR_hd_size
                     cache           = "writeback"
