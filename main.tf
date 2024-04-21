@@ -8,8 +8,8 @@ terraform {
 
 provider "proxmox" {
   pm_api_url  = var.TF_VAR_api_url
-  pm_user     = var.TF_VAR_admin_username
-  pm_password = var.TF_VAR_admin_password
+  # pm_user     = var.TF_VAR_admin_username
+  # pm_password = var.TF_VAR_admin_password
   # pm_api_token_id     = var.token_id
   # pm_api_token_secret = var.token_secret
   # Leave to "true" for self-signed certificates

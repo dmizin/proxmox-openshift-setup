@@ -1,14 +1,14 @@
-variable "token_id" {
-  type        = string
-  description = "The token created for a user in Proxmox"
-  sensitive   = true
-}
+# variable "token_id" {
+#   type        = string
+#   description = "The token created for a user in Proxmox"
+#   sensitive   = true
+# }
 
-variable "token_secret" {
-  type        = string
-  description = "The secret created for a user's token in Proxmox"
-  sensitive   = true
-}
+# variable "token_secret" {
+#   type        = string
+#   description = "The secret created for a user's token in Proxmox"
+#   sensitive   = true
+# }
 
 variable "TF_VAR_admin_username" {
   description = "User account with create VM rights on Proxmox"
