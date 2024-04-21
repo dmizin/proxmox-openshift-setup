@@ -44,7 +44,7 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
   name        = each.key
   vmid        = each.value.vmid
   #target_node = var.TF_VAR_target_host
-  target_node = each.node
+  target_node = each.value.node
   clone       = each.value.os
   full_clone  = true
   boot        = "order=scsi0;ide2;net0" # "c" by default, which renders the coreos35 clone non-bootable. "cdn" is HD, DVD and Network
