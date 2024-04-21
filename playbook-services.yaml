@@ -9,10 +9,10 @@
   become_method: sudo
   gather_facts: no
   tasks:
-  - name: Wait 300 seconds max for kicking off the playbook, but start checking after 5 seconds
-    wait_for_connection:
-      delay: 5
-      timeout: 300
+  # - name: Wait 300 seconds max for kicking off the playbook, but start checking after 5 seconds
+  #   wait_for_connection:
+  #     delay: 5
+  #     timeout: 300
   # First, let's make sure the hosts are properly named
   - name: Set hostname
     hostname:
