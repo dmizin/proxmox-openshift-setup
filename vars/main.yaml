@@ -9,7 +9,7 @@ network:
   lab_dhcp_start: 10.50.40.10
   lab_dhcp_stop: 10.50.40.99
   lab_broadcast: 10.50.40.255
-  lab_router: 10.50.40.0
+  lab_router: 10.50.40.1
 dns:
   domain: science.internal
 #  subdomain1: okd.homelab.local
