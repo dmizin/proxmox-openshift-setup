@@ -59,7 +59,7 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
 
     disks {
         virtio {
-            virtio0 {
+            scsi0 {
                 disk {
                     size            = var.TF_VAR_hd_size
                     cache           = "writeback"
