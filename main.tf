@@ -55,12 +55,21 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
   bootdisk = "scsi0"
   hotplug  = 0
 
-  disk {
-    slot    = 0
-    size    = var.TF_VAR_hd_size
-    type    = "scsi"
-    storage = var.TF_VAR_target_store
-  }
+    disks {
+        virtio {
+            virtio0 {
+                disk {
+                    size            = var.TF_VAR_hd_size
+                    cache           = "writeback"
+                    storage         = var.TF_VAR_target_store
+                    storage_type    = "rbd"
+                    iothread        = true
+                    discard         = true
+                }
+            }
+        }
+    }
+
   network {
     model   = "virtio"
     bridge  = var.TF_VAR_net_bridge
