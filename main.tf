@@ -2,7 +2,7 @@ terraform {
   required_providers {
     proxmox = {
       source = "Telmate/proxmox"
-      version = "2.9.11"
+      version = "2.9.14"
     }
   }
 }
@@ -15,7 +15,7 @@ provider "proxmox" {
   # pm_api_token_secret = var.token_secret
   # Leave to "true" for self-signed certificates
   pm_tls_insecure = "true"
-  #pm_debug        = true
+  pm_debug        = true
 }
 
 locals {
