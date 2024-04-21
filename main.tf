@@ -62,7 +62,7 @@ resource "proxmox_vm_qemu" "cloudinit-nodes" {
                     size            = var.TF_VAR_hd_size
                     cache           = "writeback"
                     storage         = var.TF_VAR_target_store
-                    storage_type    = "rbd"
+                    #storage_type    = "rbd"
                     iothread        = true
                     discard         = true
                 }
