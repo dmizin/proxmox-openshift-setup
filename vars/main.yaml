@@ -3,7 +3,7 @@ main_dns: 10.40.50.20
 
 network:
   home: 10.40.50.0/24
-  home_dns: 10.40.50.20
+  main_dns: 10.40.50.20
   lab_subnet: 10.50.40.0
   lab_cidr: 10.50.40.0/24
   lab_dhcp_start: 10.50.40.10
@@ -11,8 +11,7 @@ network:
   lab_broadcast: 10.50.40.255
   lab_router: 10.50.40.1
 dns:
-  domain: okd.science.internal
-#  subdomain1: okd.homelab.local
+  domain: science.internal
   clusterid: okd
 okd:
 # [4.5]
@@ -65,7 +64,7 @@ bootstrap_node:
   macaddr: 7A:00:00:00:03:07
 master_nodes:
   - name: master0
-    ip: 110.50.40.10
+    ip: 10.50.40.10
     macaddr: 7A:00:00:00:03:01
   - name: master1
     ip: 10.50.40.11

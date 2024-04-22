@@ -25,12 +25,12 @@
       state: disabled
 
   # No local firewall. You've been warned. If you need it, turn it back on afterwards, and ensure it still goes well.
-  - name: Stop local firewall
+  - name: Disable local firewall
     service:
       # port: "{{ item }}"
       # permanent: yes
       name: firewalld
-      state: stopped
+      state: disabled
 
 #  Fix CentOS AppStream repo
   # - name: Fix CentOS 8 AppStream repo in new releases
@@ -213,11 +213,11 @@
       shell: |
         cd tmp
         tar -xzvf install.tar.gz
-        rm install.tar.gz
+        # rm install.tar.gz
         strip openshift-install               # I like my binaries not bloated, thanks
         mv openshift-install /usr/local/bin/
         tar -xzvf client.tar.gz 
-        rm client.tar.gz
+        # rm client.tar.gz
         strip kubectl
         mv oc kubectl /usr/local/bin/
         cp kernel /var/lib/tftpboot/fcos
@@ -238,7 +238,7 @@
       vars:
         sshkey: "{{ key.stdout }}"
       lineinfile:
-        path: /home/ansiblebot/install_dir/install-config.yaml
+        path: "'{{ user.home }}'/install_dir/install-config.yaml"
         regexp: '^sshKey:'
         line: "sshKey: '{{ sshkey }}' " 
         backup: yes
@@ -260,7 +260,7 @@
     - name: Create the install files
       shell: |
         /usr/local/bin/openshift-install create manifests --dir=/home/ansiblebot/install_dir/
-        cp /home/ansiblebot/install_dir/install-config.yaml /home/ansiblebot/install-config.bck2
+        cp /home/ansiblebot/install_dir/install-config.yaml /home/ansiblebot/install-config.bck
         sed -i 's/mastersSchedulable: true/mastersSchedulable: False/' /home/ansiblebot/install_dir/manifests/cluster-scheduler-02-config.yml
         /usr/local/bin/openshift-install create ignition-configs --dir=/home/ansiblebot/install_dir/
 

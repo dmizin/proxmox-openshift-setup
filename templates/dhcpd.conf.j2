@@ -14,7 +14,7 @@ subnet {{ network.lab_subnet }} netmask 255.255.255.0 {
 host lab-valet {
  hardware ethernet {{ valet.macaddr}};
  fixed-address {{ valet.ip }};
- option domain-name-servers {{ network.home_dns }};
+ option domain-name-servers {{ network.main_dns }};
  option routers {{ network.lab_router }};
  option domain-name "{{ dns.clusterid }}.{{ dns.domain }}";
 }
