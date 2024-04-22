@@ -14,11 +14,11 @@ controlPlane:
   replicas: 3
 
 networking:
-  machineNetwork:
-  - cidr: 192.168.2.0/24    # May not be necessary, but it's a left over from my tests ... will
-  clusterNetwork:
-  - cidr: 10.128.0.0/14 
-    hostPrefix: 23 
+machineNetwork:
+- cidr: 10.177.125.0/24
+clusterNetwork:
+- cidr: 10.128.0.0/14
+  hostPrefix: 24
   networkType: OVNKubernetes
   serviceNetwork: 
   - 172.30.0.0/16
