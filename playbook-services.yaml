@@ -259,8 +259,8 @@
     # Let's create the proper OKD installation files (ignition, manifests, ...)
     - name: Create the install files
       shell: |
-        /usr/local/bin/openshift-install create manifests --dir={{ user.home }}/install_dir/
         cp {{ user.home }}/install_dir/install-config.yaml {{ user.home }}/install-config.bck
+        /usr/local/bin/openshift-install create manifests --dir={{ user.home }}/install_dir/
         sed -i 's/mastersSchedulable: true/mastersSchedulable: False/' {{ user.home }}/install_dir/manifests/cluster-scheduler-02-config.yml
         /usr/local/bin/openshift-install create ignition-configs --dir={{ user.home }}/install_dir/
 
