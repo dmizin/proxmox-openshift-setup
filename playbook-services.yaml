@@ -5,9 +5,9 @@
     - vars/main.yaml
   handlers:
     - import_tasks: handlers/main.yaml
-  become: yes
+  become: true
   become_method: sudo
-  gather_facts: no
+  gather_facts: false
   tasks:
   # - name: Wait 300 seconds max for kicking off the playbook, but start checking after 5 seconds
   #   wait_for_connection:
@@ -190,9 +190,9 @@
     - vars/main.yaml
   handlers:
     - import_tasks: handlers/main.yaml
-  become: yes
+  become: true
   become_method: sudo
-  gather_facts: no
+  gather_facts: false
   tasks:
  
     # Let's download the right files for our version of OKD
@@ -227,7 +227,7 @@
  # Generating the key that will be used by OKD to communicate will all nodes.
     - name: keygen
       community.crypto.openssh_keypair:
-        path: {{ user.home }}/.ssh/ssh_okd
+        path: "{{ user.home }}/.ssh/ssh_okd"
         owner: ansiblebot
 
     - name: get remote file contents
@@ -248,7 +248,7 @@
       vars:
         pull: "{{ lookup('file', './files/pull_secret.txt') }}"
       lineinfile: 
-        path: {{ user.home }}/install_dir/install-config.yaml
+        path: "{{ user.home }}/install_dir/install-config.yaml"
         regexp: '^pullSecret:'
         # To make sure you don't run into escaping quotes, double quotes... 
         #just make sure your pull secret in the file is between single quotes, and double quotes everywhere else :!env_var 
@@ -279,7 +279,7 @@
 
     - name: Change install_dir ownership
       file: 
-        path: {{ user.home }}/install_dir
+        path: "{{ user.home }}/install_dir"
         recurse: yes 
         state: directory
         owner: ansiblebot
