@@ -33,10 +33,10 @@
       state: stopped
 
 #  Fix CentOS AppStream repo
-  - name: Fix CentOS 8 AppStream repo in new releases
-    shell: |
-      sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
-      sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
+  # - name: Fix CentOS 8 AppStream repo in new releases
+  #   shell: |
+  #     sed -i 's/mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-*
+  #     sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-*
 
   - name: Create directories
     file: 
