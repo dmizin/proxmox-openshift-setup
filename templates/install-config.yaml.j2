@@ -3,20 +3,23 @@ baseDomain: {{ dns.domain }}
 compute:
 - name: worker
   replicas: 3
+  architecture: amd64
 controlPlane:
+  hyperthreading: Enabled 
   name: master
   replicas: 3
+  architecture: amd64
 metadata:
   name: {{ dns.clusterid }}
 networking:
   clusterNetwork:
-  - cidr: 10.128.0.0/14 7
-    hostPrefix: 23 8
-  networkType: OVNKubernetes 9
+  - cidr: 10.128.0.0/14
+    hostPrefix: 23
+  networkType: OVNKubernetes
   serviceNetwork:
   - 172.30.0.0/16
 platform:
   none: {}
-
-pullSecret: "{'auths':{'fake':{'auth': 'bar'}}}"
-sshKey: 'ssh-ed25519 AAAA...'   
+fips: false
+pullSecret: '{"auths":{"fake":{"auth": "bar"}}}'
+sshKey: 'ssh-ed25519 AAAA...' 
