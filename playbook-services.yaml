@@ -259,10 +259,10 @@
     # Let's create the proper OKD installation files (ignition, manifests, ...)
     - name: Create the install files
       shell: |
-        openshift-install create manifests --dir=/home/ansiblebot/install_dir/
+        /usr/local/bin/openshift-install create manifests --dir=/home/ansiblebot/install_dir/
         cp /home/ansiblebot/install_dir/install-config.yaml /home/ansiblebot/install-config.bck2
         sed -i 's/mastersSchedulable: true/mastersSchedulable: False/' /home/ansiblebot/install_dir/manifests/cluster-scheduler-02-config.yml
-        openshift-install create ignition-configs --dir=/home/ansiblebot/install_dir/
+        /usr/local/bin/openshift-install create ignition-configs --dir=/home/ansiblebot/install_dir/
 
     # Make these files available on the Web server
     - name: Copy all files to www directories
