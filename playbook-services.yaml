@@ -30,7 +30,7 @@
       # port: "{{ item }}"
       # permanent: yes
       name: firewalld
-      state: disabled
+      state: stopped
 
 #  Fix CentOS AppStream repo
   # - name: Fix CentOS 8 AppStream repo in new releases
