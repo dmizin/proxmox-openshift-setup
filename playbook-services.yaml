@@ -72,7 +72,7 @@
   # I added this only for troubleshooting ... will remove
   # - name: Add aliases
   #   lineinfile: 
-  #     path: /home/ansiblebot/.bashrc
+  #     path: {{ user.home }}/.bashrc
   #     insertafter: EOF
   #     line: "{{ item }}"
   #   loop:
@@ -227,7 +227,7 @@
  # Generating the key that will be used by OKD to communicate will all nodes.
     - name: keygen
       community.crypto.openssh_keypair:
-        path: /home/ansiblebot/.ssh/ssh_okd
+        path: {{ user.home }}/.ssh/ssh_okd
         owner: ansiblebot
 
     - name: get remote file contents
@@ -238,7 +238,7 @@
       vars:
         sshkey: "{{ key.stdout }}"
       lineinfile:
-        path: "'{{ user.home }}'/install_dir/install-config.yaml"
+        path: "{{ user.home }}/install_dir/install-config.yaml"
         regexp: '^sshKey:'
         line: "sshKey: '{{ sshkey }}' " 
         backup: yes
@@ -248,7 +248,7 @@
       vars:
         pull: "{{ lookup('file', './files/pull_secret.txt') }}"
       lineinfile: 
-        path: /home/ansiblebot/install_dir/install-config.yaml
+        path: {{ user.home }}/install_dir/install-config.yaml
         regexp: '^pullSecret:'
         # To make sure you don't run into escaping quotes, double quotes... 
         #just make sure your pull secret in the file is between single quotes, and double quotes everywhere else :!env_var 
@@ -259,14 +259,14 @@
     # Let's create the proper OKD installation files (ignition, manifests, ...)
     - name: Create the install files
       shell: |
-        /usr/local/bin/openshift-install create manifests --dir=/home/ansiblebot/install_dir/
-        cp /home/ansiblebot/install_dir/install-config.yaml /home/ansiblebot/install-config.bck
-        sed -i 's/mastersSchedulable: true/mastersSchedulable: False/' /home/ansiblebot/install_dir/manifests/cluster-scheduler-02-config.yml
-        /usr/local/bin/openshift-install create ignition-configs --dir=/home/ansiblebot/install_dir/
+        /usr/local/bin/openshift-install create manifests --dir={{ user.home }}/install_dir/
+        cp {{ user.home }}/install_dir/install-config.yaml {{ user.home }}/install-config.bck
+        sed -i 's/mastersSchedulable: true/mastersSchedulable: False/' {{ user.home }}/install_dir/manifests/cluster-scheduler-02-config.yml
+        /usr/local/bin/openshift-install create ignition-configs --dir={{ user.home }}/install_dir/
 
     # Make these files available on the Web server
     - name: Copy all files to www directories
-      shell: cp -R /home/ansiblebot/install_dir/* /var/www/html/okd4/
+      shell: cp -R {{ user.home }}/install_dir/* /var/www/html/okd4/
 
     - name: Change www ownership
       file: 
@@ -279,7 +279,7 @@
 
     - name: Change install_dir ownership
       file: 
-        path: /home/ansiblebot/install_dir
+        path: {{ user.home }}/install_dir
         recurse: yes 
         state: directory
         owner: ansiblebot
