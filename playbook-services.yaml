@@ -36,7 +36,7 @@
       # port: "{{ item }}"
       # permanent: yes
       name: firewalld
-      state: stopped
+      state: disabled
 
 #  Fix CentOS AppStream repo
   # - name: Fix CentOS 8 AppStream repo in new releases
@@ -126,44 +126,6 @@
     - Restart TFTP    # May not be necessary
     - Restart DHCP
   
-
-# Firewall ports to open
-  # - name: Stop local firewall
-  #   firewalld:
-  #     # port: "{{ item }}"
-  #     # permanent: yes
-  #     state: stopped
-    # I'm not collecting facts yet ... 
-    #when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
-    # loop:
-    #   - 53/udp      # DNS
-    #   - 69/tcp      # Troubleshooting some issues, shouldn't be necessary 
-    #   - 80/tcp      # HTTP
-    #   - 111/tcp
-    #   - 111/udp		# NFS
-    #   - 443/tcp     # HTTPS
-    #   # - 635/tcp
-    #   # - 635/udp
-    #   - 4011/udp
-    #   - 4011/tcp
-    #   - 6443/tcp 
-    #   - 8080/tcp
-    #   - 22623/tcp
-    # notify:
-    #   - Restart FW
-
-  # - name: open firewall services
-  #   firewalld:
-  #     service: "{{ item }}"
-  #     permanent: yes
-  #     state: enabled
-  #   loop:
-  #     - nfs
-  #     - rpc-bind
-  #     - mountd
-  #     - tftp
-  #   notify:
-  #     - Restart FW
 
   # Run it more than once, and it'll add 80 ... and 80 ... 
   - name: change httpd port

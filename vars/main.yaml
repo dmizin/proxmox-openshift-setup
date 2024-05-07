@@ -55,7 +55,7 @@ user:
   name: ansiblebot
   home: /home/ansiblebot
 valet:
-  name: lab-valet
+  name: okd-helper
   ip: 10.50.40.250
   macaddr: 7A:00:00:00:03:08
 bootstrap_node:
