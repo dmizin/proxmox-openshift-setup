@@ -36,7 +36,6 @@ locals {
     "okd-bootstrap"    = { macaddr = "7A:00:00:00:03:07", cores = 4, ram = 16384, vmid = 807, os = "pxe-client", state = "stopped", boot = true, node = "pve-k8s-01" },
      }
   }
-}
 
 /* Configure cloud-init User-Data with custom config file */
 resource "proxmox_vm_qemu" "cloudinit-nodes" {
