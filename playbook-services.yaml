@@ -30,13 +30,13 @@
   #     policy: targeted
   #     state: permissive
 
-  # No local firewall. You've been warned. If you need it, turn it back on afterwards, and ensure it still goes well.
-  - name: Disable local firewall
-    service:
-      # port: "{{ item }}"
-      # permanent: yes
-      name: firewalld
-      state: disabled
+  # # No local firewall. You've been warned. If you need it, turn it back on afterwards, and ensure it still goes well.
+  # - name: Disable local firewall
+  #   service:
+  #     # port: "{{ item }}"
+  #     # permanent: yes
+  #     name: firewalld
+  #     state: disabled
 
 #  Fix CentOS AppStream repo
   # - name: Fix CentOS 8 AppStream repo in new releases
