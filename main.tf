@@ -11,7 +11,7 @@ provider "proxmox" {
   pm_api_url  = var.TF_VAR_api_url
   pm_user     = var.TF_VAR_admin_username
   pm_password = var.TF_VAR_admin_password
-  pm_parallel = 8
+  pm_parallel = 4
   # pm_api_token_id     = var.token_id
   # pm_api_token_secret = var.token_secret
   # Leave to "true" for self-signed certificates
@@ -27,14 +27,14 @@ provider "proxmox" {
 
 locals {
   vm_settings = {
-    "master0"      = { macaddr = "7A:00:00:00:03:01", cores = 4, ram = 16384, vmid = 801, os = "pxe-client", state = "stopped", boot = false, node = "pve-k8s-01"},
-    "master1"      = { macaddr = "7A:00:00:00:03:02", cores = 4, ram = 16384, vmid = 802, os = "pxe-client", state = "stopped", boot = false, node = "pve-k8s-02" },
-    "master2"      = { macaddr = "7A:00:00:00:03:03", cores = 4, ram = 16384, vmid = 803, os = "pxe-client", state = "stopped", boot = false, node = "pve-k8s-01" },
-    "worker0"      = { macaddr = "7A:00:00:00:03:04", cores = 2, ram = 16384, vmid = 804, os = "pxe-client", state = "stopped", boot = false, node = "pve-k8s-02" },
-    "worker1"      = { macaddr = "7A:00:00:00:03:05", cores = 2, ram = 16384, vmid = 805, os = "pxe-client", state = "stopped", boot = false, node = "pve-k8s-01" },
-    "worker2"      = { macaddr = "7A:00:00:00:03:06", cores = 2, ram = 16384, vmid = 806, os = "pxe-client", state = "stopped", boot = false, node = "pve-k8s-02" },
-    "bootstrap"    = { macaddr = "7A:00:00:00:03:07", cores = 4, ram = 16384, vmid = 807, os = "pxe-client", state = "stopped", boot = false, node = "pve-k8s-01" },
-    "okd-services" = { macaddr = "7A:00:00:00:03:08", cores = 4, ram = 16384, vmid = 808, os = "a2cent", state = "running", boot = true, node = "pve-k8s-02" }
+    "okd-master0"      = { macaddr = "7A:00:00:00:03:01", cores = 4, ram = 16384, vmid = 801, os = "pxe-client", state = "stopped", boot = true, node = "pve-k8s-01"},
+    "okd-master1"      = { macaddr = "7A:00:00:00:03:02", cores = 4, ram = 16384, vmid = 802, os = "pxe-client", state = "stopped", boot = true, node = "pve-k8s-02" },
+    "okd-master2"      = { macaddr = "7A:00:00:00:03:03", cores = 4, ram = 16384, vmid = 803, os = "pxe-client", state = "stopped", boot = true, node = "pve-k8s-01" },
+    "okd-worker0"      = { macaddr = "7A:00:00:00:03:04", cores = 4, ram = 16384, vmid = 804, os = "pxe-client", state = "stopped", boot = true, node = "pve-k8s-02" },
+    "okd-worker1"      = { macaddr = "7A:00:00:00:03:05", cores = 4, ram = 16384, vmid = 805, os = "pxe-client", state = "stopped", boot = true, node = "pve-k8s-01" },
+    "okd-worker2"      = { macaddr = "7A:00:00:00:03:06", cores = 4, ram = 16384, vmid = 806, os = "pxe-client", state = "stopped", boot = true, node = "pve-k8s-02" },
+    "okd-bootstrap"    = { macaddr = "7A:00:00:00:03:07", cores = 4, ram = 16384, vmid = 807, os = "pxe-client", state = "stopped", boot = true, node = "pve-k8s-01" },
+     }
   }
 }
 
